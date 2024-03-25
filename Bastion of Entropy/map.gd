@@ -1,54 +1,35 @@
 extends Spatial
 
 var block_scene = preload("res://block.tscn")
+var stairs_scene = preload("res://stairs.tscn")
 var tween = null
 
-var blocks = [
-	Vector3(-4, -1, 0),
-	Vector3(-3, -1, 0),
-	Vector3(-2, -1, 0),
-	Vector3(-1, -1, 0),
-	Vector3(0, -1, 0),
-	Vector3(1, -1, 0),
-	Vector3(2, -1, 0),
-	Vector3(3, -1, 0),
-	Vector3(4, -1, 0),
-	Vector3(0, -1, -4),
-	Vector3(0, -1, -3),
-	Vector3(0, -1, -2),
-	Vector3(0, -1, -1),
-	Vector3(0, -1, 1),
-	Vector3(0, -1, 2),
-	Vector3(0, -1, 3),
-	Vector3(0, -1, 4),
-	Vector3(1, 0, 1),
-	Vector3(1, 0, -1),
-	Vector3(-1, 0, 1),
-	Vector3(-1, 0, -1),
-	Vector3(-4, 1, 0),
-	Vector3(-3, 1, 0),
-	Vector3(-2, 1, 0),
-	Vector3(-1, 1, 0),
-	Vector3(0, 1, 0),
-	Vector3(1, 1, 0),
-	Vector3(2, 1, 0),
-	Vector3(3, 1, 0),
-	Vector3(4, 1, 0),
-	Vector3(0, 1, -4),
-	Vector3(0, 1, -3),
-	Vector3(0, 1, -2),
-	Vector3(0, 1, -1),
-	Vector3(0, 1, 1),
-	Vector3(0, 1, 2),
-	Vector3(0, 1, 3),
-	Vector3(0, 1, 4),
-]
+var blocks = []
 
 func _ready():
+	for x in range(-10, 10):
+		for z in range(-10, 10):
+			for y in range(-10, 10):
+				blocks.append(Vector3(x, y, z))
+	blocks.erase(Vector3())
+	blocks.erase(Vector3(0, 0, 1))
+	blocks.erase(Vector3(0, 0, 2))
+	blocks.erase(Vector3(0, 0, 3))
+	blocks.erase(Vector3(0, 0, 4))
+	blocks.erase(Vector3(1, 0, 0))
+	blocks.erase(Vector3(2, 0, 0))
+	blocks.erase(Vector3(3, 0, 0))
+	blocks.erase(Vector3(-3, 0, 0))
+	blocks.erase(Vector3(-2, 0, 0))
+	blocks.erase(Vector3(-1, 0, 0))
+	
 	for block in blocks:
 		var block_instance = block_scene.instance()
 		block_instance.translation = block
 		$Blocks.add_child(block_instance)
+	var stairs_instance = stairs_scene.instance()
+	stairs_instance.translation = Vector3(0, 0, 4)
+	$Blocks.add_child(stairs_instance)
 
 func _process(_delta):
 	if tween != null and tween.is_running():

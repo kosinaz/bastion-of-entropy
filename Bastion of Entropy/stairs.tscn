@@ -1,0 +1,259 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://floor.png" type="Texture" id=1]
+[ext_resource path="res://wall.png" type="Texture" id=2]
+[ext_resource path="res://wall_n.png" type="Texture" id=4]
+[ext_resource path="res://black_n.png" type="Texture" id=5]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 2 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 4 )
+uv1_scale = Vector3( 3, 3, 3 )
+
+[sub_resource type="CylinderMesh" id=2]
+material = SubResource( 1 )
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 0.1, 0.02, 0.2 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 1 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 5 )
+
+[node name="Stairs" type="Spatial"]
+
+[node name="Column" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+
+[node name="StepSection" type="Spatial" parent="."]
+
+[node name="StepSection" type="Spatial" parent="StepSection"]
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.04, 0 )
+
+[node name="Step" type="Spatial" parent="StepSection/StepSection"]
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection/Step"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step2" type="Spatial" parent="StepSection/StepSection"]
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.04, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection/Step2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step3" type="Spatial" parent="StepSection/StepSection"]
+transform = Transform( 0.854634, -0.017509, 0.518936, 0.0208969, 0.999781, -0.000682192, -0.518811, 0.0114272, 0.854813, 0, 0.08, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection/Step3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step4" type="Spatial" parent="StepSection/StepSection"]
+transform = Transform( 0.707107, -2.18557e-08, 0.707107, 1.13133e-08, 1, 1.95953e-08, -0.707107, -5.85622e-09, 0.707107, 0, 0.12, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection/Step4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step5" type="Spatial" parent="StepSection/StepSection"]
+transform = Transform( 0.5, -2.26267e-08, 0.866025, 1.13133e-08, 1, 1.95953e-08, -0.866025, -8.88178e-16, 0.5, 0, 0.16, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection/Step5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step6" type="Spatial" parent="StepSection/StepSection"]
+transform = Transform( 0.258819, -2.18557e-08, 0.965926, 1.13133e-08, 1, 1.95953e-08, -0.965926, 5.85621e-09, 0.258819, 0, 0.2, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection/Step6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="StepSection2" type="Spatial" parent="StepSection"]
+transform = Transform( -0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, 0, 0.29, 0 )
+
+[node name="Step" type="Spatial" parent="StepSection/StepSection2"]
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection2/Step"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step2" type="Spatial" parent="StepSection/StepSection2"]
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.04, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection2/Step2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step3" type="Spatial" parent="StepSection/StepSection2"]
+transform = Transform( 0.854634, -0.017509, 0.518936, 0.0208969, 0.999781, -0.000682192, -0.518811, 0.0114272, 0.854813, 0, 0.08, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection2/Step3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step4" type="Spatial" parent="StepSection/StepSection2"]
+transform = Transform( 0.707107, -2.18557e-08, 0.707107, 1.13133e-08, 1, 1.95953e-08, -0.707107, -5.85622e-09, 0.707107, 0, 0.12, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection2/Step4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step5" type="Spatial" parent="StepSection/StepSection2"]
+transform = Transform( 0.5, -2.26267e-08, 0.866025, 1.13133e-08, 1, 1.95953e-08, -0.866025, -8.88178e-16, 0.5, 0, 0.16, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection2/Step5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step6" type="Spatial" parent="StepSection/StepSection2"]
+transform = Transform( 0.258819, -2.18557e-08, 0.965926, 1.13133e-08, 1, 1.95953e-08, -0.965926, 5.85621e-09, 0.258819, 0, 0.2, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection2/Step6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="StepSection3" type="Spatial" parent="StepSection"]
+transform = Transform( -0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 0.54, 0 )
+
+[node name="Step" type="Spatial" parent="StepSection/StepSection3"]
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection3/Step"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step2" type="Spatial" parent="StepSection/StepSection3"]
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.04, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection3/Step2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step3" type="Spatial" parent="StepSection/StepSection3"]
+transform = Transform( 0.854634, -0.017509, 0.518936, 0.0208969, 0.999781, -0.000682192, -0.518811, 0.0114272, 0.854813, 0, 0.08, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection3/Step3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step4" type="Spatial" parent="StepSection/StepSection3"]
+transform = Transform( 0.707107, -2.18557e-08, 0.707107, 1.13133e-08, 1, 1.95953e-08, -0.707107, -5.85622e-09, 0.707107, 0, 0.12, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection3/Step4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step5" type="Spatial" parent="StepSection/StepSection3"]
+transform = Transform( 0.5, -2.26267e-08, 0.866025, 1.13133e-08, 1, 1.95953e-08, -0.866025, -8.88178e-16, 0.5, 0, 0.16, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection3/Step5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step6" type="Spatial" parent="StepSection/StepSection3"]
+transform = Transform( 0.258819, -2.18557e-08, 0.965926, 1.13133e-08, 1, 1.95953e-08, -0.965926, 5.85621e-09, 0.258819, 0, 0.2, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection3/Step6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="StepSection4" type="Spatial" parent="StepSection"]
+transform = Transform( 0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 0, 0.79, 0 )
+
+[node name="Step" type="Spatial" parent="StepSection/StepSection4"]
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection4/Step"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step2" type="Spatial" parent="StepSection/StepSection4"]
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0, 0.04, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection4/Step2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step3" type="Spatial" parent="StepSection/StepSection4"]
+transform = Transform( 0.854634, -0.017509, 0.518936, 0.0208969, 0.999781, -0.000682192, -0.518811, 0.0114272, 0.854813, 0, 0.08, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection4/Step3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step4" type="Spatial" parent="StepSection/StepSection4"]
+transform = Transform( 0.707107, -2.18557e-08, 0.707107, 1.13133e-08, 1, 1.95953e-08, -0.707107, -5.85622e-09, 0.707107, 0, 0.12, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection4/Step4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step5" type="Spatial" parent="StepSection/StepSection4"]
+transform = Transform( 0.5, -2.26267e-08, 0.866025, 1.13133e-08, 1, 1.95953e-08, -0.866025, -8.88178e-16, 0.5, 0, 0.16, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection4/Step5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
+
+[node name="Step6" type="Spatial" parent="StepSection/StepSection4"]
+transform = Transform( 0.258819, -2.18557e-08, 0.965926, 1.13133e-08, 1, 1.95953e-08, -0.965926, 5.85621e-09, 0.258819, 0, 0.2, 0 )
+
+[node name="Step" type="MeshInstance" parent="StepSection/StepSection4/Step6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.499916, 0.150056 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../../..")
+material/0 = SubResource( 4 )
