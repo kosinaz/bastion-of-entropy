@@ -29,6 +29,7 @@ func _ready():
 		$Blocks.add_child(block_instance)
 	var stairs_instance = stairs_scene.instance()
 	stairs_instance.translation = Vector3(0, 0, 4)
+	stairs_instance.rotation_degrees.y = 180
 	$Blocks.add_child(stairs_instance)
 
 func _process(_delta):
