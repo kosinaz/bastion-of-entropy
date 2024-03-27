@@ -19,7 +19,10 @@ func rotate_right():
 	tween.tween_callback(self, "_stop")
 
 func get_map_rotation_plus(degrees):
-	return (map_rotation + degrees) % 360
+	var rotation = (map_rotation + degrees) % 360
+	if rotation < 0:
+		rotation = 360 + rotation
+	return rotation
 
 func get_forward_block():
 	return map_translation - 1 * Vector3(sin(deg2rad(map_rotation)), 0, cos(deg2rad(map_rotation))).round()

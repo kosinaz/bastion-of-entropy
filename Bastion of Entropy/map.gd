@@ -61,7 +61,6 @@ func _ready():
 	blocks[Vector3(0, 1, 6)] = null
 	blocks[Vector3(0, 1, 7)] = null
 	blocks[Vector3(0, 1, 8)] = null
-
 	
 	for block in blocks:
 		if blocks[block] == null:
@@ -84,9 +83,7 @@ func _process(_delta):
 	elif Input.is_action_pressed("ui_right"):
 		$Player.rotate_right()
 	elif Input.is_action_pressed("ui_up"):
-		print($Player.get_map_rotation_plus(180))
 		if blocks[$Player.get_forward_down_block()] == null:
-			print("gap ahead: ", $Player.get_forward_down_block())
 			return
 		elif blocks[$Player.get_forward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(180)):
 			$Player.move_forward_down_forward()
@@ -96,7 +93,6 @@ func _process(_delta):
 			$Player.move_forward_up_forward()
 	elif Input.is_action_pressed("ui_down"):
 		if blocks[$Player.get_backward_down_block()] == null:
-			print("gap behind: ", $Player.get_backward_down_block())
 			return
 		elif blocks[$Player.get_backward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(0)):
 			$Player.move_backward_down_backward()
