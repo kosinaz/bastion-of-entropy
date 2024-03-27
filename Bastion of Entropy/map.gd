@@ -25,6 +25,10 @@ func _ready():
 	blocks[Vector3(-1, 1, 6)] = null
 	blocks[Vector3(-1, 1, 7)] = null
 	blocks[Vector3(-1, 1, 8)] = null
+	blocks[Vector3(-1, 2, 5)] = null
+	blocks[Vector3(-1, 2, 6)] = null
+	blocks[Vector3(-1, 2, 7)] = null
+	blocks[Vector3(-1, 2, 8)] = null
 	blocks[Vector3(-2, 0, 5)] = null
 	blocks[Vector3(-2, 0, 6)] = null
 	blocks[Vector3(-2, 0, 7)] = null
@@ -33,6 +37,10 @@ func _ready():
 	blocks[Vector3(-2, 1, 6)] = null
 	blocks[Vector3(-2, 1, 7)] = null
 	blocks[Vector3(-2, 1, 8)] = null
+	blocks[Vector3(-2, 2, 5)] = null
+	blocks[Vector3(-2, 2, 6)] = null
+	blocks[Vector3(-2, 2, 7)] = null
+	blocks[Vector3(-2, 2, 8)] = null
 	blocks[Vector3(-3, 0, 5)] = null
 	blocks[Vector3(-3, 0, 6)] = null
 	blocks[Vector3(-3, 0, 7)] = null
@@ -41,6 +49,10 @@ func _ready():
 	blocks[Vector3(-3, 1, 6)] = null
 	blocks[Vector3(-3, 1, 7)] = null
 	blocks[Vector3(-3, 1, 8)] = null
+	blocks[Vector3(-3, 2, 5)] = null
+	blocks[Vector3(-3, 2, 6)] = null
+	blocks[Vector3(-3, 2, 7)] = null
+	blocks[Vector3(-3, 2, 8)] = null
 	blocks[Vector3(0, 0, 4)] = "stairs180"
 	blocks[Vector3(1, 0, 0)] = null
 	blocks[Vector3(2, 0, 0)] = null
