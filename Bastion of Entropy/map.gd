@@ -8,9 +8,9 @@ var blocks = {}
 var moving_blocks = []
 
 func _ready():
-	for x in range(-10, 10):
-		for z in range(-10, 10):
-			for y in range(-10, 10):
+	for x in range(-20, 20):
+		for z in range(-20, 20):
+			for y in range(-20, 20):
 				blocks[Vector3(x, y, z)] = null
 	
 	var file = File.new()
@@ -20,17 +20,17 @@ func _ready():
 	while file.get_position() < file.get_len():
 		var content = file.get_csv_line(" ")
 		var block_name = "block"
-		if content[3] == "221":
-			block_name = "gate90"
-		elif content[3] == "238":
-			block_name = "gate0"
-		elif content[4] == "68":
-			block_name = "stairs0"
-		elif content[4] == "238":
-			block_name = "stairs90"
-		elif content[4] == "221":
-			block_name = "stairs270"
-		elif content[3] == "0" and content[5] == "255":
+		if content[3] + content[4] + content[5] == "238238238":
+			$Player.translation = Vector3(int(content[0]), int(content[2]), int(content[1]))
+			$Player.map_translation = $Player.translation
+			$Player.rotation_degrees.y = 90
+			$Player.map_rotation = 90
+			block_name = "null"
+		elif content[3] + content[4] + content[5] == "051102":
+			block_name = "stairs"
+		elif content[3] + content[4] + content[5] == "23800":
+			block_name = null
+		elif content[3] + content[4] + content[5] == "686868":
 			block_name = "moving_block"
 		blocks[Vector3(int(content[0]), int(content[2]), int(content[1]))] = block_name
 	file.close()
@@ -47,9 +47,20 @@ func _ready():
 			gate_instance.rotation_degrees.y = int(blocks[block].right(4))
 			gate_instance.translation = block
 			$Blocks.add_child(gate_instance)
-		elif blocks[block].begins_with("stairs"):
+		elif blocks[block] == "stairs":
 			var stairs_instance = stairs_scene.instance()
-			stairs_instance.rotation_degrees.y = int(blocks[block].right(6))
+			if blocks[block + Vector3(1, 0, 0)] == null:
+				blocks[block] += "90"
+				stairs_instance.rotation_degrees.y = 90
+			elif blocks[block + Vector3(-1, 0, 0)] == null:
+				blocks[block] += "270"
+				stairs_instance.rotation_degrees.y = 270
+			elif blocks[block + Vector3(0, 0, 1)] == null:
+				blocks[block] += "0"
+				stairs_instance.rotation_degrees.y = 0
+			elif blocks[block + Vector3(0, 0, -1)] == null:
+				blocks[block] += "180"
+				stairs_instance.rotation_degrees.y = 180
 			stairs_instance.translation = block
 			$Blocks.add_child(stairs_instance)
 		elif blocks[block] == "moving_block":
