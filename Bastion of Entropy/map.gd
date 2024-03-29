@@ -14,7 +14,7 @@ func _ready():
 				blocks[Vector3(x, y, z)] = null
 	
 	var file = File.new()
-	file.open("res://map.ply", File.READ)
+	file.open("map.ply", File.READ)
 	for _i in range(11):
 		file.get_csv_line()
 	while file.get_position() < file.get_len():
@@ -23,13 +23,11 @@ func _ready():
 		if content[3] + content[4] + content[5] == "238238238":
 			$Player.translation = Vector3(int(content[0]), int(content[2]), int(content[1]))
 			$Player.map_translation = $Player.translation
-			$Player.rotation_degrees.y = 90
-			$Player.map_rotation = 90
-			block_name = "null"
+			block_name = null
 		elif content[3] + content[4] + content[5] == "051102":
 			block_name = "stairs"
 		elif content[3] + content[4] + content[5] == "23800":
-			block_name = null
+			block_name = "gate"
 		elif content[3] + content[4] + content[5] == "686868":
 			block_name = "moving_block"
 		blocks[Vector3(int(content[0]), int(content[2]), int(content[1]))] = block_name
@@ -44,7 +42,9 @@ func _ready():
 			$Blocks.add_child(block_instance)
 		elif blocks[block].begins_with("gate"):
 			var gate_instance = gate_scene.instance()
-			gate_instance.rotation_degrees.y = int(blocks[block].right(4))
+			if blocks[block + Vector3(0, 0, 1)] == null:
+				blocks[block] += "90"
+				gate_instance.rotation_degrees.y = 90
 			gate_instance.translation = block
 			$Blocks.add_child(gate_instance)
 		elif blocks[block] == "stairs":
