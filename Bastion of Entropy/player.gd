@@ -101,12 +101,12 @@ func move_backward_up_backward():
 	var tween_z = get_tree().create_tween()
 	tween_z.tween_property(self, "translation:z", map_translation.z, 1)
 
-func move_up():
-	map_translation.y += 1
+func move_up(target_y):
+	map_translation.y = target_y
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation:y", map_translation.y, 0.5)
 	
-func move_down():
-	map_translation.y -= 1
+func move_down(target_y):
+	map_translation.y = target_y
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "translation:y", map_translation.y, 0.5)

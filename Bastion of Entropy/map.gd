@@ -106,17 +106,22 @@ func _process(_delta):
 			$Player.move_backward_up_backward()
 	elif Input.is_action_pressed("ui_page_down"):
 		for block in moving_blocks:
-			if blocks[Vector3(block.translation.x, block.translation.y - 1, block.translation.z)] == null:
+			var total_y = 0
+			var current_y = block.translation.y
+			while blocks[Vector3(block.translation.x, current_y - 1, block.translation.z)] == null:
+				total_y += 1
+				current_y -= 1
+			if total_y > 0:
 				moving = true
 				if $Player.translation == block.map_translation + Vector3(0, 1, 0):
-					$Player.move_down()
-				block.move_down()
+					$Player.move_down(current_y + 1)
+				block.move_down(current_y)
 	elif Input.is_action_pressed("ui_page_up"):
 		for block in moving_blocks:
 			if block.map_translation.y < block.map_translation_initial.y:
 				moving = true
 				if $Player.translation == block.map_translation + Vector3(0, 1, 0):
-					$Player.move_up()
+					$Player.move_up(block.map_translation_initial.y + 1)
 				block.move_up()
 
 func stop():
