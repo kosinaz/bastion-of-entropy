@@ -6,6 +6,7 @@ var gate_scene = preload("res://gate.tscn")
 var moving = false
 var blocks = {}
 var moving_blocks = []
+var time = 0
 
 func _ready():
 	for x in range(-20, 20):
@@ -105,7 +106,10 @@ func _process(_delta):
 			moving = true
 			$Player.move_backward_up_backward()
 	elif Input.is_action_pressed("ui_page_down"):
+		time += 1
 		for block in moving_blocks:
+			if time != block.map_translation_initial.y:
+				continue
 			var total_y = 0
 			var current_y = block.translation.y
 			while blocks[Vector3(block.translation.x, current_y - 1, block.translation.z)] == null:
@@ -117,7 +121,10 @@ func _process(_delta):
 					$Player.move_down(current_y + 1)
 				block.move_down(current_y)
 	elif Input.is_action_pressed("ui_page_up"):
+		time -= 1
 		for block in moving_blocks:
+			if time != block.map_translation_initial.y - 1:
+				continue
 			if block.map_translation.y < block.map_translation_initial.y:
 				moving = true
 				if $Player.translation == block.map_translation + Vector3(0, 1, 0):
