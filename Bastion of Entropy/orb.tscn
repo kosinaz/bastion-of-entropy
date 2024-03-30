@@ -12,8 +12,8 @@ roughness = 0.18
 
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 4 )
-radius = 0.25
-height = 0.5
+radius = 0.1
+height = 0.2
 
 [sub_resource type="Animation" id=5]
 resource_name = "New Anim"

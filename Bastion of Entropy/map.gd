@@ -126,6 +126,8 @@ func _process(_delta):
 			$Player.move_backward_up_backward()
 	if moving:
 		time += time_direction
+		$"%TimeLabel".text = str(time / 2.0)
+		$"%ProgressBar".value = time / 0.14
 		print(time)
 		if time_direction == 1:
 			for block in moving_blocks:
