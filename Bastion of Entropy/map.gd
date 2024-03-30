@@ -73,15 +73,17 @@ func _ready():
 			moving_blocks.append(block_instance)
 
 func _process(_delta):
+	if blocks[$Player.map_translation] != null:
+		print("splash")
 	if moving:
 		return
-	if Input.is_action_pressed("ui_left"):
+	elif Input.is_action_pressed("ui_left"):
 		moving = true
 		$Player.rotate_left()
 	elif Input.is_action_pressed("ui_right"):
 		moving = true
 		$Player.rotate_right()
-	elif Input.is_action_pressed("ui_up"):
+	elif Input.is_action_pressed("ui_up") and time < 15:
 		if blocks[$Player.get_forward_down_block()] == null:
 			return
 		elif blocks[$Player.get_forward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(180)):
@@ -93,7 +95,24 @@ func _process(_delta):
 		elif blocks[$Player.get_forward_block()] == "stairs" + str($Player.get_map_rotation_plus(0)):
 			moving = true
 			$Player.move_forward_up_forward()
-	elif Input.is_action_pressed("ui_down"):
+		if moving:
+			time += 1
+			print(time)
+			for block in moving_blocks:
+				if time != block.map_translation_initial.y:
+					continue
+				var total_y = 0
+				var current_y = block.translation.y
+				while blocks[Vector3(block.translation.x, current_y - 1, block.translation.z)] == null:
+					total_y += 1
+					current_y -= 1
+				if total_y > 0:
+					moving = true
+					if $Player.map_translation == block.map_translation + Vector3(0, 1, 0):
+						$Player.move_down(current_y + 1)
+						print("splash")
+					block.move_down(current_y)
+	elif Input.is_action_pressed("ui_down") and time > 0:
 		if blocks[$Player.get_backward_down_block()] == null:
 			return
 		elif blocks[$Player.get_backward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(0)):
@@ -105,31 +124,17 @@ func _process(_delta):
 		elif blocks[$Player.get_backward_block()] == "stairs" + str($Player.get_map_rotation_plus(180)):
 			moving = true
 			$Player.move_backward_up_backward()
-	elif Input.is_action_pressed("ui_page_down"):
-		time += 1
-		for block in moving_blocks:
-			if time != block.map_translation_initial.y:
-				continue
-			var total_y = 0
-			var current_y = block.translation.y
-			while blocks[Vector3(block.translation.x, current_y - 1, block.translation.z)] == null:
-				total_y += 1
-				current_y -= 1
-			if total_y > 0:
-				moving = true
-				if $Player.translation == block.map_translation + Vector3(0, 1, 0):
-					$Player.move_down(current_y + 1)
-				block.move_down(current_y)
-	elif Input.is_action_pressed("ui_page_up"):
-		time -= 1
-		for block in moving_blocks:
-			if time != block.map_translation_initial.y - 1:
-				continue
-			if block.map_translation.y < block.map_translation_initial.y:
-				moving = true
-				if $Player.translation == block.map_translation + Vector3(0, 1, 0):
-					$Player.move_up(block.map_translation_initial.y + 1)
-				block.move_up()
+		if moving:
+			time -= 1
+			print(time)
+			for block in moving_blocks:
+				if time != block.map_translation_initial.y - 1:
+					continue
+				if block.map_translation.y < block.map_translation_initial.y:
+					moving = true
+					if $Player.map_translation == block.map_translation + Vector3(0, 1, 0):
+						$Player.move_up(block.map_translation_initial.y + 1)
+					block.move_up()
 
 func stop():
 	moving = false
