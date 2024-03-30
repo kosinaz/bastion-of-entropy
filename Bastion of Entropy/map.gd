@@ -3,10 +3,16 @@ extends Spatial
 var block_scene = preload("res://block.tscn")
 var stairs_scene = preload("res://stairs.tscn")
 var gate_scene = preload("res://gate.tscn")
+var orb_scene = preload("res://orb.tscn")
 var moving = false
 var blocks = {}
 var moving_blocks = []
 var time = 0
+var time_direction = 1
+var up_is_down = false
+var left_is_down = false
+var down_is_down = false
+var right_is_down = false
 
 func _ready():
 	for x in range(-20, 20):
@@ -34,6 +40,10 @@ func _ready():
 		blocks[Vector3(int(content[0]), int(content[2]), int(content[1]))] = block_name
 	file.close()
 	
+	
+	var orb_instance = orb_scene.instance()
+	orb_instance.translation = $Player.map_translation + Vector3(1, 0, 0)
+	$Blocks.add_child(orb_instance)
 	for block in blocks:
 		if blocks[block] == null:
 			continue
@@ -77,13 +87,20 @@ func _process(_delta):
 		print("splash")
 	if moving:
 		return
-	elif Input.is_action_pressed("ui_left"):
+	elif Input.is_action_just_pressed("ui_select"):
+		time_direction = -time_direction
+		return
+	elif time_direction == 1 and time > 13:
+		return
+	elif time_direction == -1 and time < 1:
+		return
+	elif Input.is_action_pressed("ui_left") or left_is_down:
 		moving = true
 		$Player.rotate_left()
-	elif Input.is_action_pressed("ui_right"):
+	elif Input.is_action_pressed("ui_right") or right_is_down:
 		moving = true
 		$Player.rotate_right()
-	elif Input.is_action_pressed("ui_up") and time < 15:
+	elif Input.is_action_pressed("ui_up") or up_is_down:
 		if blocks[$Player.get_forward_down_block()] == null:
 			return
 		elif blocks[$Player.get_forward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(180)):
@@ -95,9 +112,22 @@ func _process(_delta):
 		elif blocks[$Player.get_forward_block()] == "stairs" + str($Player.get_map_rotation_plus(0)):
 			moving = true
 			$Player.move_forward_up_forward()
-		if moving:
-			time += 1
-			print(time)
+	elif Input.is_action_pressed("ui_down") or down_is_down:
+		if blocks[$Player.get_backward_down_block()] == null:
+			return
+		elif blocks[$Player.get_backward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(0)):
+			moving = true
+			$Player.move_backward_down_backward()
+		elif blocks[$Player.get_backward_block()] == null:
+			moving = true
+			$Player.move_backward()
+		elif blocks[$Player.get_backward_block()] == "stairs" + str($Player.get_map_rotation_plus(180)):
+			moving = true
+			$Player.move_backward_up_backward()
+	if moving:
+		time += time_direction
+		print(time)
+		if time_direction == 1:
 			for block in moving_blocks:
 				if time != block.map_translation_initial.y:
 					continue
@@ -112,21 +142,7 @@ func _process(_delta):
 						$Player.move_down(current_y + 1)
 						print("splash")
 					block.move_down(current_y)
-	elif Input.is_action_pressed("ui_down") and time > 0:
-		if blocks[$Player.get_backward_down_block()] == null:
-			return
-		elif blocks[$Player.get_backward_down_block()] == "stairs" + str($Player.get_map_rotation_plus(0)):
-			moving = true
-			$Player.move_backward_down_backward()
-		elif blocks[$Player.get_backward_block()] == null:
-			moving = true
-			$Player.move_backward()
-		elif blocks[$Player.get_backward_block()] == "stairs" + str($Player.get_map_rotation_plus(180)):
-			moving = true
-			$Player.move_backward_up_backward()
-		if moving:
-			time -= 1
-			print(time)
+		else:
 			for block in moving_blocks:
 				if time != block.map_translation_initial.y - 1:
 					continue
@@ -138,3 +154,30 @@ func _process(_delta):
 
 func stop():
 	moving = false
+
+func _on_up_button_down():
+	up_is_down = true
+
+func _on_left_button_down():
+	left_is_down = true
+
+func _on_down_button_down():
+	down_is_down = true
+
+func _on_right_button_down():
+	right_is_down = true
+
+func _on_up_button_up():
+	up_is_down = false
+
+func _on_left_button_up():
+	left_is_down = false
+
+func _on_down_button_up():
+	down_is_down = false
+
+func _on_right_button_up():
+	right_is_down = false
+
+func _on_flip_pressed():
+	time_direction = -time_direction
