@@ -4,6 +4,7 @@ var block_scene = preload("res://block.tscn")
 var stairs_scene = preload("res://stairs.tscn")
 var gate_scene = preload("res://gate.tscn")
 var orb_scene = preload("res://orb.tscn")
+var portal_scene = preload("res://portal.tscn")
 var moving = false
 var blocks = {}
 var orbs = []
@@ -15,6 +16,7 @@ var up_is_down = false
 var left_is_down = false
 var down_is_down = false
 var right_is_down = false
+var portal = null
 
 func _ready():
 	for x in range(-20, 20):
@@ -39,6 +41,8 @@ func _ready():
 			block_name = "gate"
 		elif content[3] + content[4] + content[5] == "00238":
 			block_name = "orb"
+		elif content[3] + content[4] + content[5] == "02380":
+			block_name = "portal"
 		elif content[3] + content[4] + content[5] == "686868":
 			block_name = "moving_block"
 		blocks[Vector3(int(content[0]), int(content[2]), int(content[1]))] = block_name
@@ -87,10 +91,15 @@ func _ready():
 			orbs.append(orb_instance)
 			$Orbs.add_child(orb_instance)
 			blocks[block] = null
+		elif blocks[block] == "portal":
+			portal = portal_scene.instance()
+			portal.translation = block
+			add_child(portal)
+			blocks[block] = null
 
 func _process(_delta):
 	if blocks[$Player.map_translation] != null:
-		print("splash")
+		$Player/GameOverPanel.show()
 	if moving:
 		return
 	elif Input.is_action_just_pressed("ui_select") and flips > 0:
@@ -147,7 +156,7 @@ func _process(_delta):
 					moving = true
 					if $Player.map_translation == block.map_translation + Vector3(0, 1, 0):
 						$Player.move_down(current_y + 1)
-						print("splash")
+						$Player/GameOverPanel.show()
 					block.move_down(current_y)
 		else:
 			for block in moving_blocks:
@@ -166,6 +175,8 @@ func _process(_delta):
 				$"%Flip".text = " x " + str(flips)
 				$"%Flip".disabled = false
 				return
+		if portal.translation == $Player.map_translation:
+			$Player/VictoryPanel.show()
 
 func stop():
 	moving = false
@@ -203,3 +214,6 @@ func flip_time():
 	$"%Flip".text = " x " + str(flips)
 	if flips == 0:
 		$"%Flip".disabled = true
+
+func _on_restart_pressed():
+	get_tree().reload_current_scene()

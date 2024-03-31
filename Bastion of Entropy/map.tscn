@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://Cthulhu's Calling.otf" type="DynamicFontData" id=2]
@@ -22,6 +22,13 @@ font_data = ExtResource( 2 )
 size = 48
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=7]
+size = 56
+use_mipmaps = true
+use_filter = true
+extra_spacing_char = 2
+font_data = ExtResource( 2 )
+
 [sub_resource type="Environment" id=4]
 ambient_light_color = Color( 0.0784314, 0.0509804, 0.141176, 1 )
 ambient_light_energy = 2.0
@@ -40,10 +47,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
 [node name="OmniLight" type="OmniLight" parent="Player"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17514, 1.07069 )
 omni_range = 3.0
-
-[node name="TextureRect" type="TextureRect" parent="Player"]
-anchor_right = 1.0
-anchor_bottom = 1.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Player"]
 anchor_right = 1.0
@@ -171,6 +174,80 @@ text = " x 0"
 icon = ExtResource( 5 )
 align = 0
 
+[node name="GameOverPanel" type="Panel" parent="Player"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="Player/GameOverPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -471.5
+margin_top = -132.5
+margin_right = 471.5
+margin_bottom = 132.5
+custom_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Player/GameOverPanel/MarginContainer2"]
+margin_right = 943.0
+margin_bottom = 245.0
+custom_fonts/font = SubResource( 7 )
+text = "You have been killed 
+by some falling debris...
+
+Game over!"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Player/GameOverPanel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -75.5
+margin_top = -77.0
+margin_right = 75.5
+custom_constants/margin_bottom = 20
+
+[node name="Restart" type="Button" parent="Player/GameOverPanel/MarginContainer"]
+margin_right = 151.0
+margin_bottom = 57.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_colors/font_color_disabled = Color( 0.14902, 0.14902, 0.14902, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 6 )
+action_mode = 0
+text = "Restart"
+align = 0
+
+[node name="VictoryPanel" type="Panel" parent="Player"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="Player/VictoryPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -471.5
+margin_top = -132.5
+margin_right = 471.5
+margin_bottom = 132.5
+custom_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Player/VictoryPanel/MarginContainer2"]
+margin_right = 943.0
+margin_bottom = 245.0
+custom_fonts/font = SubResource( 7 )
+text = "You enter the portal...
+Finally! You are free!
+
+...Or are you?"
+align = 1
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
 
@@ -187,3 +264,4 @@ environment = SubResource( 4 )
 [connection signal="button_down" from="Player/MarginContainer2/VBoxContainer/HBoxContainer/Right" to="." method="_on_right_button_down"]
 [connection signal="button_up" from="Player/MarginContainer2/VBoxContainer/HBoxContainer/Right" to="." method="_on_right_button_up"]
 [connection signal="pressed" from="Player/MarginContainer2/VBoxContainer/HBoxContainer3/Flip" to="." method="_on_flip_pressed"]
+[connection signal="pressed" from="Player/GameOverPanel/MarginContainer/Restart" to="." method="_on_restart_pressed"]
