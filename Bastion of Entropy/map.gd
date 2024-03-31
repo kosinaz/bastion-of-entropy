@@ -37,20 +37,13 @@ func _ready():
 			block_name = "stairs"
 		elif content[3] + content[4] + content[5] == "23800":
 			block_name = "gate"
+		elif content[3] + content[4] + content[5] == "00238":
+			block_name = "orb"
 		elif content[3] + content[4] + content[5] == "686868":
 			block_name = "moving_block"
 		blocks[Vector3(int(content[0]), int(content[2]), int(content[1]))] = block_name
 	file.close()
 	
-	
-	var orb_instance = orb_scene.instance()
-	orb_instance.translation = $Player.map_translation + Vector3(4, 0, 0)
-	orbs.append(orb_instance)
-	$Blocks.add_child(orb_instance)
-	orb_instance = orb_scene.instance()
-	orb_instance.translation = $Player.map_translation + Vector3(-1, 0, -3)
-	orbs.append(orb_instance)
-	$Blocks.add_child(orb_instance)
 	for block in blocks:
 		if blocks[block] == null:
 			continue
@@ -88,6 +81,12 @@ func _ready():
 			block_instance.map_translation = block
 			$Blocks.add_child(block_instance)
 			moving_blocks.append(block_instance)
+		elif blocks[block] == "orb":
+			var orb_instance = orb_scene.instance()
+			orb_instance.translation = block
+			orbs.append(orb_instance)
+			$Orbs.add_child(orb_instance)
+			blocks[block] = null
 
 func _process(_delta):
 	if blocks[$Player.map_translation] != null:
@@ -163,7 +162,7 @@ func _process(_delta):
 			if orb.translation == $Player.map_translation:
 				orbs.erase(orb)
 				orb.queue_free()
-				flips += 1
+				flips += 3
 				$"%Flip".text = " x " + str(flips)
 				$"%Flip".disabled = false
 				return

@@ -176,6 +176,8 @@ environment = SubResource( 4 )
 
 [node name="Blocks" type="Node" parent="."]
 
+[node name="Orbs" type="Node" parent="."]
+
 [connection signal="button_down" from="Player/MarginContainer2/VBoxContainer/HBoxContainer2/Up" to="." method="_on_up_button_down"]
 [connection signal="button_up" from="Player/MarginContainer2/VBoxContainer/HBoxContainer2/Up" to="." method="_on_up_button_up"]
 [connection signal="button_down" from="Player/MarginContainer2/VBoxContainer/HBoxContainer/Left" to="." method="_on_left_button_down"]
