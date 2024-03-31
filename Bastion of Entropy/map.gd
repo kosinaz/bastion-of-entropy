@@ -106,8 +106,12 @@ func _process(_delta):
 		flip_time()
 		return
 	elif time_direction == 1 and time > 13:
+		if flips == 0:
+			$Player/GameOverPanel2.show()
 		return
 	elif time_direction == -1 and time < 1:
+		if flips == 0:
+			$Player/GameOverPanel2.show()
 		return
 	elif Input.is_action_pressed("ui_left") or left_is_down:
 		moving = true
