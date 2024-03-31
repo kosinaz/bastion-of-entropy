@@ -6,9 +6,11 @@ var gate_scene = preload("res://gate.tscn")
 var orb_scene = preload("res://orb.tscn")
 var moving = false
 var blocks = {}
+var orbs = []
 var moving_blocks = []
 var time = 0
 var time_direction = 1
+var flips = 0
 var up_is_down = false
 var left_is_down = false
 var down_is_down = false
@@ -42,7 +44,12 @@ func _ready():
 	
 	
 	var orb_instance = orb_scene.instance()
-	orb_instance.translation = $Player.map_translation + Vector3(1, 0, 0)
+	orb_instance.translation = $Player.map_translation + Vector3(4, 0, 0)
+	orbs.append(orb_instance)
+	$Blocks.add_child(orb_instance)
+	orb_instance = orb_scene.instance()
+	orb_instance.translation = $Player.map_translation + Vector3(-1, 0, -3)
+	orbs.append(orb_instance)
 	$Blocks.add_child(orb_instance)
 	for block in blocks:
 		if blocks[block] == null:
@@ -87,8 +94,8 @@ func _process(_delta):
 		print("splash")
 	if moving:
 		return
-	elif Input.is_action_just_pressed("ui_select"):
-		time_direction = -time_direction
+	elif Input.is_action_just_pressed("ui_select") and flips > 0:
+		flip_time()
 		return
 	elif time_direction == 1 and time > 13:
 		return
@@ -128,7 +135,6 @@ func _process(_delta):
 		time += time_direction
 		$"%TimeLabel".text = str(time / 2.0)
 		$"%ProgressBar".value = time / 0.14
-		print(time)
 		if time_direction == 1:
 			for block in moving_blocks:
 				if time != block.map_translation_initial.y:
@@ -153,6 +159,14 @@ func _process(_delta):
 					if $Player.map_translation == block.map_translation + Vector3(0, 1, 0):
 						$Player.move_up(block.map_translation_initial.y + 1)
 					block.move_up()
+		for orb in orbs:
+			if orb.translation == $Player.map_translation:
+				orbs.erase(orb)
+				orb.queue_free()
+				flips += 1
+				$"%Flip".text = " x " + str(flips)
+				$"%Flip".disabled = false
+				return
 
 func stop():
 	moving = false
@@ -182,4 +196,11 @@ func _on_right_button_up():
 	right_is_down = false
 
 func _on_flip_pressed():
+	flip_time()
+
+func flip_time():
 	time_direction = -time_direction
+	flips -= 1
+	$"%Flip".text = " x " + str(flips)
+	if flips == 0:
+		$"%Flip".disabled = true
