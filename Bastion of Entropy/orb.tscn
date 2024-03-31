@@ -44,5 +44,4 @@ mesh = SubResource( 3 )
 [node name="OmniLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.232676, 0 )
 light_color = Color( 0.505882, 0.537255, 1, 1 )
-shadow_enabled = true
 omni_range = 2.001

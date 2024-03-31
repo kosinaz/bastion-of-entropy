@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "MapData",
+"language": "GDScript",
+"path": "res://map_data.gd"
+} ]
+_global_script_class_icons={
+"MapData": ""
+}
+
 [application]
 
 config/name="Bastion of Entropy"
