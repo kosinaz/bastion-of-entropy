@@ -1,14 +1,14 @@
 extends CanvasLayer
 
 onready var blocks = $"%MapPresent".blocks
-onready var moving_blocks_past = $"%MapPast".moving_blocks
-onready var moving_blocks_present = $"%MapPresent".moving_blocks
 onready var moving_blocks_future = $"%MapFuture".moving_blocks
+onready var moving_blocks_present = $"%MapPresent".moving_blocks
+onready var moving_blocks_past = $"%MapPast".moving_blocks
 onready var orbs = $"%MapPresent".orbs
 onready var portal = $"%MapPresent".portal
-onready var player_past = $"%MapPast/Player"
-onready var player_present = $"%MapPresent/Player"
 onready var player_future = $"%MapFuture/Player"
+onready var player_present = $"%MapPresent/Player"
+onready var player_past = $"%MapPast/Player"
 var time = 0
 var time_direction = 1
 var flips = 0
@@ -18,11 +18,14 @@ var down_is_down = false
 var right_is_down = false
 
 func _process(_delta):
+	for orb in orbs:
+		orb.hide()
+		orb.show()
 	if blocks[player_present.map_translation] != null:
 		$GameOverPanel.show()
 	if player_past.moving or player_present.moving or player_future.moving:
 		return
-	elif Input.is_action_just_pressed("ui_select") and flips > 0:
+	if Input.is_action_just_pressed("ui_select") and flips > 0:
 		flip_time()
 		return
 	elif time_direction == 1 and time > 13:

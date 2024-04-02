@@ -30,7 +30,10 @@ func _ready():
 		elif content[3] + content[4] + content[5] == "23800":
 			block_name = "gate"
 		elif content[3] + content[4] + content[5] == "00238":
-			block_name = "orb"
+			if present:
+				block_name = "orb"
+			else:
+				block_name = null
 		elif content[3] + content[4] + content[5] == "02380":
 			block_name = "portal"
 		elif content[3] + content[4] + content[5] == "686868":
@@ -74,7 +77,7 @@ func _ready():
 			block_instance.map_translation = block
 			$Blocks.add_child(block_instance)
 			moving_blocks.append(block_instance)
-		elif blocks[block] == "orb" and present:
+		elif blocks[block] == "orb":
 			var orb_instance = orb_scene.instance()
 			orb_instance.translation = block
 			orbs.append(orb_instance)

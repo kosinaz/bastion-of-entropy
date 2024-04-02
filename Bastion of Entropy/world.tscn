@@ -13,15 +13,6 @@
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="Environment" id=4]
-ambient_light_color = Color( 0.298039, 0.294118, 0.737255, 1 )
-
-[sub_resource type="World" id=5]
-environment = SubResource( 4 )
-
-[sub_resource type="World" id=6]
-environment = ExtResource( 9 )
-
 [sub_resource type="DynamicFont" id=1]
 size = 32
 outline_size = 1
@@ -30,6 +21,15 @@ use_mipmaps = true
 use_filter = true
 extra_spacing_char = 4
 font_data = ExtResource( 3 )
+
+[sub_resource type="World" id=6]
+environment = ExtResource( 9 )
+
+[sub_resource type="Environment" id=4]
+ambient_light_color = Color( 0.298039, 0.294118, 0.737255, 1 )
+
+[sub_resource type="World" id=5]
+environment = SubResource( 4 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 48
@@ -50,53 +50,112 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 7 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-alignment = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="ViewportContainer1" type="ViewportContainer" parent="HBoxContainer"]
-modulate = Color( 1, 1, 1, 0.407843 )
-margin_top = 198.0
-margin_right = 204.0
-margin_bottom = 402.0
-rect_min_size = Vector2( 204, 204 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-stretch = true
-stretch_shrink = 2
+[node name="TimeContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 80.0
 
-[node name="Viewport1" type="Viewport" parent="HBoxContainer/ViewportContainer1"]
-size = Vector2( 102, 102 )
-own_world = true
-world = SubResource( 5 )
-handle_input_locally = false
-render_target_update_mode = 3
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TimeContainer"]
+margin_right = 1024.0
+margin_bottom = 80.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
 
-[node name="MapPast" parent="HBoxContainer/ViewportContainer1/Viewport1" instance=ExtResource( 1 )]
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/TimeContainer/MarginContainer"]
 unique_name_in_owner = true
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+percent_visible = false
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="HBoxContainer"]
-margin_left = 208.0
-margin_right = 816.0
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TimeContainer/MarginContainer/ProgressBar"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -17.0
+margin_bottom = 17.0
+
+[node name="TimeLabel" type="Label" parent="VBoxContainer/TimeContainer/MarginContainer/ProgressBar/MarginContainer"]
+unique_name_in_owner = true
+margin_right = 984.0
+margin_bottom = 34.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 84.0
+margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+alignment = 1
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
+margin_right = 680.0
+margin_bottom = 516.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 stretch = true
 
-[node name="Viewport2" type="Viewport" parent="HBoxContainer/ViewportContainer2"]
-size = Vector2( 608, 600 )
+[node name="Viewport2" type="Viewport" parent="VBoxContainer/HBoxContainer/ViewportContainer2"]
+size = Vector2( 680, 516 )
 own_world = true
 world = SubResource( 6 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="MapPresent" parent="HBoxContainer/ViewportContainer2/Viewport2" instance=ExtResource( 1 )]
+[node name="MapPresent" parent="VBoxContainer/HBoxContainer/ViewportContainer2/Viewport2" instance=ExtResource( 1 )]
 unique_name_in_owner = true
 present = true
 
-[node name="ViewportContainer3" type="ViewportContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 684.0
+margin_right = 1024.0
+margin_bottom = 516.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ViewportContainer1" type="ViewportContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0.407843 )
+margin_right = 340.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport1" type="Viewport" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewportContainer1"]
+size = Vector2( 340, 256 )
+own_world = true
+world = SubResource( 5 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="MapPast" parent="VBoxContainer/HBoxContainer/VBoxContainer/ViewportContainer1/Viewport1" instance=ExtResource( 1 )]
+unique_name_in_owner = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 260.0
+margin_right = 340.0
+margin_bottom = 516.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ViewportContainer3" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
 modulate = Color( 1, 1, 1, 0.407843 )
 margin_left = 820.0
 margin_top = 198.0
@@ -108,54 +167,15 @@ size_flags_vertical = 4
 stretch = true
 stretch_shrink = 2
 
-[node name="Viewport3" type="Viewport" parent="HBoxContainer/ViewportContainer3"]
+[node name="Viewport3" type="Viewport" parent="VBoxContainer/HBoxContainer/ViewportContainer3"]
 size = Vector2( 102, 102 )
 own_world = true
 world = SubResource( 5 )
 handle_input_locally = false
-render_target_update_mode = 3
+render_target_update_mode = 0
 
-[node name="MapFuture" parent="HBoxContainer/ViewportContainer3/Viewport3" instance=ExtResource( 1 )]
+[node name="MapFuture" parent="VBoxContainer/HBoxContainer/ViewportContainer3/Viewport3" instance=ExtResource( 1 )]
 unique_name_in_owner = true
-
-[node name="TimeContainer" type="MarginContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="MarginContainer" type="MarginContainer" parent="TimeContainer"]
-margin_right = 1024.0
-margin_bottom = 600.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
-
-[node name="ProgressBar" type="ProgressBar" parent="TimeContainer/MarginContainer"]
-unique_name_in_owner = true
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 1004.0
-margin_bottom = 60.0
-rect_min_size = Vector2( 0, 40 )
-size_flags_horizontal = 3
-percent_visible = false
-
-[node name="MarginContainer" type="MarginContainer" parent="TimeContainer/MarginContainer/ProgressBar"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -17.0
-margin_bottom = 17.0
-
-[node name="TimeLabel" type="Label" parent="TimeContainer/MarginContainer/ProgressBar/MarginContainer"]
-unique_name_in_owner = true
-margin_right = 984.0
-margin_bottom = 34.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
-text = "0"
-align = 1
 
 [node name="ControlsContainer2" type="MarginContainer" parent="."]
 anchor_left = 1.0
@@ -368,3 +388,6 @@ Finally! You are free!
 
 ...Or are you?"
 align = 1
+
+[connection signal="pressed" from="GameOverPanel/MarginContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="GameOverPanel2/MarginContainer/Restart" to="." method="_on_restart_pressed"]
