@@ -103,8 +103,8 @@ func _process(_delta):
 			move_block(block, 1)
 		for block in moving_blocks_present:
 			move_block(block, 0)
-#		for block in moving_blocks_future:
-#			move_block(block, 1)
+		for block in moving_blocks_future:
+			move_block(block, -1)
 		for orb in orbs:
 			if orb.translation == player_present.map_translation:
 				orbs.erase(orb)
@@ -151,10 +151,8 @@ func flip_time():
 		$"%Flip".disabled = true
 
 func move_block(block, relative_time):
-#	print(block.map_translation_initial.y, " vs ", time + relative_time, " - ", relative_time)
 	if time_direction == 1:
 		if time + relative_time == block.map_translation_initial.y:
-			print("equals")
 			var total_y = 0
 			var current_y = block.map_translation.y
 			while blocks[Vector3(block.map_translation.x, current_y - 1, block.map_translation.z)] == null:

@@ -1,5 +1,6 @@
 extends Spatial
 
+export var present = false
 var block_scene = preload("res://block.tscn")
 var stairs_scene = preload("res://stairs.tscn")
 var gate_scene = preload("res://gate.tscn")
@@ -73,7 +74,7 @@ func _ready():
 			block_instance.map_translation = block
 			$Blocks.add_child(block_instance)
 			moving_blocks.append(block_instance)
-		elif blocks[block] == "orb":
+		elif blocks[block] == "orb" and present:
 			var orb_instance = orb_scene.instance()
 			orb_instance.translation = block
 			orbs.append(orb_instance)

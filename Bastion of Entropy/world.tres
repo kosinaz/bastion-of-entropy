@@ -1,0 +1,6 @@
+[gd_resource type="Environment" format=2]
+
+[resource]
+ambient_light_color = Color( 0.0784314, 0.0509804, 0.141176, 1 )
+ambient_light_energy = 2.0
+fog_sun_amount = 0.79

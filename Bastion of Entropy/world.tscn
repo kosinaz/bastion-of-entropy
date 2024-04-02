@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://world.gd" type="Script" id=2]
@@ -8,6 +8,19 @@
 [ext_resource path="res://left.png" type="Texture" id=6]
 [ext_resource path="res://up.png" type="Texture" id=7]
 [ext_resource path="res://down.png" type="Texture" id=8]
+[ext_resource path="res://world.tres" type="Environment" id=9]
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Environment" id=4]
+ambient_light_color = Color( 0.298039, 0.294118, 0.737255, 1 )
+
+[sub_resource type="World" id=5]
+environment = SubResource( 4 )
+
+[sub_resource type="World" id=6]
+environment = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -32,19 +45,31 @@ font_data = ExtResource( 3 )
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource( 2 )
 
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 7 )
+
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+alignment = 1
 
 [node name="ViewportContainer1" type="ViewportContainer" parent="HBoxContainer"]
-margin_right = 384.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+modulate = Color( 1, 1, 1, 0.407843 )
+margin_top = 198.0
+margin_right = 204.0
+margin_bottom = 402.0
+rect_min_size = Vector2( 204, 204 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch = true
+stretch_shrink = 2
 
 [node name="Viewport1" type="Viewport" parent="HBoxContainer/ViewportContainer1"]
-size = Vector2( 384, 288 )
+size = Vector2( 102, 102 )
 own_world = true
+world = SubResource( 5 )
 handle_input_locally = false
 render_target_update_mode = 3
 
@@ -52,31 +77,41 @@ render_target_update_mode = 3
 unique_name_in_owner = true
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="HBoxContainer"]
-margin_left = 388.0
-margin_right = 1028.0
+margin_left = 208.0
+margin_right = 816.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+stretch = true
 
 [node name="Viewport2" type="Viewport" parent="HBoxContainer/ViewportContainer2"]
-size = Vector2( 640, 480 )
+size = Vector2( 608, 600 )
 own_world = true
+world = SubResource( 6 )
 handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="MapPresent" parent="HBoxContainer/ViewportContainer2/Viewport2" instance=ExtResource( 1 )]
 unique_name_in_owner = true
+present = true
 
 [node name="ViewportContainer3" type="ViewportContainer" parent="HBoxContainer"]
-margin_left = 1032.0
-margin_right = 1544.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+modulate = Color( 1, 1, 1, 0.407843 )
+margin_left = 820.0
+margin_top = 198.0
+margin_right = 1024.0
+margin_bottom = 402.0
+rect_min_size = Vector2( 204, 204 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch = true
+stretch_shrink = 2
 
 [node name="Viewport3" type="Viewport" parent="HBoxContainer/ViewportContainer3"]
-size = Vector2( 512, 600 )
+size = Vector2( 102, 102 )
 own_world = true
+world = SubResource( 5 )
 handle_input_locally = false
 render_target_update_mode = 3
 
@@ -127,28 +162,28 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -240.0
-margin_top = -222.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+margin_left = -208.0
+margin_top = -193.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ControlsContainer2"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 220.0
-margin_bottom = 205.0
-custom_constants/separation = 10
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 198.0
+margin_bottom = 183.0
+alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="ControlsContainer2/VBoxContainer"]
-margin_right = 200.0
+margin_right = 188.0
 margin_bottom = 54.0
 alignment = 1
 
 [node name="Up" type="Button" parent="ControlsContainer2/VBoxContainer/HBoxContainer2"]
-margin_left = 70.0
-margin_right = 130.0
+margin_left = 64.0
+margin_right = 124.0
 margin_bottom = 54.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -156,10 +191,10 @@ action_mode = 0
 icon = ExtResource( 7 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ControlsContainer2/VBoxContainer"]
-margin_top = 64.0
-margin_right = 200.0
-margin_bottom = 118.0
-custom_constants/separation = 10
+margin_top = 58.0
+margin_right = 188.0
+margin_bottom = 112.0
+alignment = 1
 
 [node name="Left" type="Button" parent="ControlsContainer2/VBoxContainer/HBoxContainer"]
 margin_right = 60.0
@@ -170,8 +205,8 @@ action_mode = 0
 icon = ExtResource( 6 )
 
 [node name="Down" type="Button" parent="ControlsContainer2/VBoxContainer/HBoxContainer"]
-margin_left = 70.0
-margin_right = 130.0
+margin_left = 64.0
+margin_right = 124.0
 margin_bottom = 54.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -179,8 +214,8 @@ action_mode = 0
 icon = ExtResource( 8 )
 
 [node name="Right" type="Button" parent="ControlsContainer2/VBoxContainer/HBoxContainer"]
-margin_left = 140.0
-margin_right = 200.0
+margin_left = 128.0
+margin_right = 188.0
 margin_bottom = 54.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -188,15 +223,15 @@ action_mode = 0
 icon = ExtResource( 4 )
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="ControlsContainer2/VBoxContainer"]
-margin_top = 128.0
-margin_right = 200.0
-margin_bottom = 185.0
+margin_top = 116.0
+margin_right = 188.0
+margin_bottom = 173.0
 alignment = 1
 
 [node name="Flip" type="Button" parent="ControlsContainer2/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
-margin_left = 38.0
-margin_right = 162.0
+margin_left = 32.0
+margin_right = 156.0
 margin_bottom = 57.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
