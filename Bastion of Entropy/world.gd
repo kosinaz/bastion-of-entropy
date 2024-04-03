@@ -152,6 +152,15 @@ func flip_time():
 	$"%Flip".text = " x " + str(flips)
 	if flips == 0:
 		$"%Flip".disabled = true
+	if time_direction == -1:
+		$AudioStreamPlayer2.seek(25.79 - $AudioStreamPlayer.get_playback_position())
+		$AudioStreamPlayer.stop()
+		$AudioStreamPlayer2.play()
+	else:
+		$AudioStreamPlayer.seek(25.79 - $AudioStreamPlayer2.get_playback_position())
+		$AudioStreamPlayer2.stop()
+		$AudioStreamPlayer.play()
+	
 
 func move_block(block, relative_time):
 	if time_direction == 1:

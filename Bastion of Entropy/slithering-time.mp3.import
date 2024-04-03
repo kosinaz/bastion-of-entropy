@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/slithering-time.mp3-dd3408a671c50464c79f8a1ea44cfcba.mp3str"
+
+[deps]
+
+source_file="res://slithering-time.mp3"
+dest_files=[ "res://.import/slithering-time.mp3-dd3408a671c50464c79f8a1ea44cfcba.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

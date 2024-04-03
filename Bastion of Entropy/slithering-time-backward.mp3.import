@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/slithering-time-backward.mp3-5b90773cefcaf9b1210b25b51e062d9e.mp3str"
+
+[deps]
+
+source_file="res://slithering-time-backward.mp3"
+dest_files=[ "res://.import/slithering-time-backward.mp3-5b90773cefcaf9b1210b25b51e062d9e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
